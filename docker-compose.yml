@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - dokploy-network
+      - my-ipv6-network
+
+networks:
+  my-ipv6-network:
+    external: true
+  dokploy-network:
+    external: true
