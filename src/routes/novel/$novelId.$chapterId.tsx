@@ -14,21 +14,21 @@ export const Route = createFileRoute("/novel/$novelId/$chapterId")({
 	},
 });
 
-const FONT_FAMILY_CLASSES = {
-	inter: "font-sans",
-	bookerly: "font-serif",
+const FONT_FAMILY_STYLES: Record<string, string> = {
+	inter: "'Inter', sans-serif",
+	bookerly: "'Bookerly', serif",
 };
 
-const LINE_HEIGHT_CLASSES = {
-	tight: "leading-tight",
-	normal: "leading-normal",
-	relaxed: "leading-relaxed",
+const LINE_HEIGHT_STYLES: Record<string, number> = {
+	tight: 1.2,
+	normal: 1.5,
+	relaxed: 1.75,
 };
 
-const LETTER_SPACING_CLASSES = {
-	tight: "tracking-tight",
-	normal: "tracking-normal",
-	wide: "tracking-wider",
+const LETTER_SPACING_STYLES: Record<string, string> = {
+	tight: "-0.025em",
+	normal: "0em",
+	wide: "0.05em",
 };
 
 const FONT_SIZE_RANGE = {
@@ -134,7 +134,7 @@ function RouteComponent() {
 			<div className="mb-6">
 				<p className="font-medium mb-2">Line Spacing</p>
 				<div className="flex space-x-2">
-					{Object.keys(LINE_HEIGHT_CLASSES).map((key) => (
+					{Object.keys(LINE_HEIGHT_STYLES).map((key) => (
 						<Button
 							key={key}
 							variant={settings.lineHeight === key ? "default" : "outline"}
@@ -151,7 +151,7 @@ function RouteComponent() {
 			<div className="mb-6">
 				<p className="font-medium mb-2">Letter Spacing</p>
 				<div className="flex space-x-2">
-					{Object.keys(LETTER_SPACING_CLASSES).map((key) => (
+					{Object.keys(LETTER_SPACING_STYLES).map((key) => (
 						<Button
 							key={key}
 							variant={settings.letterSpacing === key ? "default" : "outline"}
@@ -168,14 +168,13 @@ function RouteComponent() {
 			<div>
 				<p className="font-medium mb-2">Font Family</p>
 				<div className="flex space-x-2">
-					{Object.keys(FONT_FAMILY_CLASSES).map((fontKey) => (
+					{Object.keys(FONT_FAMILY_STYLES).map((fontKey) => (
 						<Button
 							key={fontKey}
 							variant={settings.fontFamily === fontKey ? "default" : "outline"}
 							onClick={() => updateSetting("fontFamily", fontKey)}
-							className={`capitalize ${
-								FONT_FAMILY_CLASSES[fontKey as keyof typeof FONT_FAMILY_CLASSES]
-							}`}
+							className="capitalize"
+							style={{ fontFamily: FONT_FAMILY_STYLES[fontKey] }}
 						>
 							{fontKey}
 						</Button>
@@ -223,6 +222,22 @@ function RouteComponent() {
 		);
 	};
 
+	const contentStyle = {
+		fontSize: `${settings.fontSize}px`,
+		lineHeight:
+			LINE_HEIGHT_STYLES[
+				settings.lineHeight as keyof typeof LINE_HEIGHT_STYLES
+			],
+		letterSpacing:
+			LETTER_SPACING_STYLES[
+				settings.letterSpacing as keyof typeof LETTER_SPACING_STYLES
+			],
+		fontFamily:
+			FONT_FAMILY_STYLES[
+				settings.fontFamily as keyof typeof FONT_FAMILY_STYLES
+			],
+	};
+
 	return (
 		<div className="max-w-3xl mx-auto p-4">
 			<div className="flex justify-end pt-4">
@@ -240,22 +255,7 @@ function RouteComponent() {
 			<h1 className="text-3xl font-bold mb-6 text-center">
 				{chapterId} {title}
 			</h1>
-			<div
-				className={`space-y-4 ${
-					LINE_HEIGHT_CLASSES[
-						settings.lineHeight as keyof typeof LINE_HEIGHT_CLASSES
-					]
-				} ${
-					LETTER_SPACING_CLASSES[
-						settings.letterSpacing as keyof typeof LETTER_SPACING_CLASSES
-					]
-				} ${
-					FONT_FAMILY_CLASSES[
-						settings.fontFamily as keyof typeof FONT_FAMILY_CLASSES
-					]
-				}`}
-				style={{ fontSize: `${settings.fontSize}px` }}
-			>
+			<div className="space-y-4" style={contentStyle}>
 				{paragraphs.map((paragraph) => (
 					<p key={paragraph}>{paragraph}</p>
 				))}
