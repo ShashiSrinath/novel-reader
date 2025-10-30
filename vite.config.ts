@@ -14,7 +14,7 @@ const config = defineConfig({
     }),
     tailwindcss(),
     tanstackStart(),
-    nitroV2Plugin({ preset: 'bun' }),
+    nitroV2Plugin({ preset: 'bun', compatibilityDate: "2025-10-30" }),
     viteReact(),
   ],
 })
