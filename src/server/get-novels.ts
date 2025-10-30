@@ -34,7 +34,7 @@ export type NovelChapter = {
 
 export const getNovels = createServerFn().handler(async () => {
 	const response = await fetch(
-		"https://nocodb.shashtechsolutions.com/api/v2/tables/mzq1bl4ygwtwuk1/records",
+		`${env.NOCO_API_PATH}/api/v2/tables/mzq1bl4ygwtwuk1/records`,
 		{
 			headers: {
 				"xc-token": env.READER_TOKEN,
@@ -49,7 +49,7 @@ export const getNovelChaptersById = createServerFn()
 	.inputValidator(z.object({ id: z.string() }))
 	.handler(async ({ data }) => {
 		const response = await fetch(
-			`https://nocodb.shashtechsolutions.com/api/v2/tables/${data.id}/records?fields=Chapter,Translated Title&where=(Status,eq,Translated)&limit=999999999`,
+			`${env.NOCO_API_PATH}/api/v2/tables/${data.id}/records?fields=Chapter,Translated Title&where=(Status,eq,Translated)&limit=999999999`,
 			{
 				headers: {
 					"xc-token": env.READER_TOKEN,
@@ -63,7 +63,7 @@ export const getChapterById = createServerFn()
 	.inputValidator(z.object({ novelId: z.string(), chapterId: z.string() }))
 	.handler(async ({ data }) => {
 		const response = await fetch(
-			`https://nocodb.shashtechsolutions.com/api/v2/tables/${data.novelId}/records?fields=Chapter,Translated Title,Translated Text (English)&where=(Chapter,eq,${data.chapterId})&limit=1`,
+			`${env.NOCO_API_PATH}/api/v2/tables/${data.novelId}/records?fields=Chapter,Translated Title,Translated Text (English)&where=(Chapter,eq,${data.chapterId})&limit=1`,
 			{
 				headers: {
 					"xc-token": env.READER_TOKEN,

@@ -5,6 +5,7 @@ export const env = createEnv({
 	server: {
 		SERVER_URL: z.string().url().optional(),
 		READER_TOKEN: z.string(),
+		NOCO_API_PATH: z.string(),
 	},
 
 	/**
