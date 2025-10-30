@@ -4,8 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NOCO_API_PATH=${NOCO_API_PATH}
-      - READER_TOKEN=${READER_TOKEN}
+      NOCO_API_PATH: "${NOCO_API_PATH}"
+      READER_TOKEN: "${READER_TOKEN}"
     expose:
       - 3000
     networks:
