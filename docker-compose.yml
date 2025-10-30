@@ -6,6 +6,7 @@ services:
     environment:
       NOCO_API_PATH: ${NOCO_API_PATH}
       READER_TOKEN: ${READER_TOKEN}
+      NODE_ENV: ${NODE_ENV}
     expose:
       - 3000
     networks:
